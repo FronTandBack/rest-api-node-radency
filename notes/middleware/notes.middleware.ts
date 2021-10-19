@@ -1,5 +1,7 @@
 import express from 'express';
 import notesService from '../services/notes.service';
+import YupNoteSchema from '../scheme/note.scheme';
+
 import debug from 'debug';
 
 const log: debug.IDebugger = debug('app:notes-controller');
@@ -10,17 +12,31 @@ class NotesMiddleware {
         res: express.Response,
         next: express.NextFunction
     ) {
-        if (req.body && req.body.name && req.body.content) {
-            next();
-        } else {
+
+        const noteValid = await YupNoteSchema.isValid(req.body);
+
+        // console.log(noteValid);
+
+        if (!noteValid) {
             res.status(400).send({
-                error: `Missing required fields name and content`,
+                error: `Missing required fields`,
             });
         }
 
+        next(); 
+
     }
 
-    
+    // async validateRequiredCreateNoteBodyFields(
+    //     req: express.Request,
+    //     res: express.Response,
+    //     next: express.NextFunction) {
+
+
+       
+    // }
+
+
 
     // async extractNoteId(
     //     req: express.Request,
