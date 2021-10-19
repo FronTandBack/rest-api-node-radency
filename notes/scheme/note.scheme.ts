@@ -1,7 +1,7 @@
 import * as yup from 'yup';
 
 
-const NoteSchema = yup.object().shape({
+const YupNoteSchema = yup.object().shape({
     id: yup.string().required(),
     name: yup.string(),
     created: yup.date(),
@@ -11,4 +11,4 @@ const NoteSchema = yup.object().shape({
     dates: yup.array()
 });
 
-export default NoteSchema;
+export default YupNoteSchema;

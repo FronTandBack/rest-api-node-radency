@@ -4,15 +4,15 @@ import debug from 'debug';
 const log: debug.IDebugger = debug('app:mongoose-service');
 
 
-const url = 'mongodb+srv://viktor_94:yCOMG8Qr3EMbBnHj@cluster0.ndpzo.mongodb.net/notes_db?retryWrites=true&w=majority';
+const url = 'mongodb+srv://viktor_94:Fq783rWFqH4qYQnf@cluster0.ndpzo.mongodb.net/notes_db?retryWrites=true&w=majority';
 
 class MongooseService {
     private count = 0;
     private mongooseOptions = {
         useNewUrlParser: true,
         useUnifiedTopology: true,
-        serverSelectionTimeoutMS: 5000,
-        useFindAndModify: false,
+        serverSelectionTimeoutMS: 5000
+        // useFindAndModify: false,
     };
 
     constructor() {

@@ -28,7 +28,7 @@ class NotesService implements CRUD {
     }
 
     async setArchive(id: string) {
-        return NotesDao.changeNotesByArchive(id);
+        // return NotesDao.changeNotesByArchive(id);
     }
 
     stats = async () => {

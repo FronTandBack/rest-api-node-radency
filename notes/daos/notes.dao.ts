@@ -1,9 +1,9 @@
 
-import mongooseService from '../../common/services/mongoose.service'; \
+import mongooseService from '../../common/services/mongoose.service';
 
 import { CreateNoteDto } from '../dto/create.note.dto';
 import { PatchNoteDto } from '../dto/patch.note.dto';
-import NoteSchema from '../scheme/note.scheme';
+import YupNoteSchema from '../scheme/note.scheme';
 import shortid from 'shortid';
 import debug from 'debug';
 
@@ -25,7 +25,7 @@ class NotesDao {
         dates: Array
     }, { id: false });
 
-    Note = mongooseService.getMongoose().model('Notes', this.noteSchema);
+    Note = mongooseService.getMongoose().model('notes', this.noteSchema);
 
     constructor() {
         log('Created new instance of NotesDao');
@@ -38,7 +38,6 @@ class NotesDao {
         // note.created = new Date();
         // note.archive = true;
         // note.dates = [new Date()];
-
         const note = new this.Note({
             _id: noteId,
             ...noteFields,
@@ -47,7 +46,7 @@ class NotesDao {
 
 
 
-        const noteValid = await NoteSchema.isValid(note);
+        const noteValid = await YupNoteSchema.isValid(note);
 
         console.log(noteValid);
         if (!noteValid) {
@@ -64,11 +63,13 @@ class NotesDao {
     async getNotes() {
         // console.log('Now is empty array');
         // return this.notes;
-
-        return this.Note.find()
-            // .limit(limit)
-            // .skip(limit * page)
+        console.log('Add note before mongo');
+        return this.Note.find({})
+            // .limit(10)
+            // .skip(10)
             .exec();
+
+        // return notes;
     }
 
     async getNoteById(noteId: string) {
