@@ -15,15 +15,15 @@ class NotesMiddleware {
 
         const noteValid = await YupNoteSchema.isValid(req.body);
 
-        // console.log(noteValid);
-
+        console.log('Work midlle');
+        console.log(noteValid);
         if (!noteValid) {
             res.status(400).send({
                 error: `Missing required fields`,
             });
         }
 
-        next(); 
+        return next(); 
 
     }
 
